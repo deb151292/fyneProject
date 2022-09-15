@@ -1,5 +1,3 @@
-// //go:generate fyne bundle -o data.go Icon.png
-
 package main
 
 import (
@@ -21,14 +19,14 @@ type appInfo struct {
 }
 
 var apps = []appInfo{
-	{"Save User", images.Insert, false, savedata.Insert},
-	{"Display User", images.Insert, false, disp.User_Display},
+	{"Save User", images.Saveicon, false, savedata.Insert},
+	{"Display User", images.Dispicon, false, disp.User_Display},
 }
 
 func main() {
 
 	a := app.New()
-	a.SetIcon(resourceIconPng)
+	a.SetIcon(images.ResourceIconPng)
 
 	content := container.NewMax()
 	w := a.NewWindow("Shop")
@@ -68,7 +66,7 @@ func main() {
 //for icon file
 
 // func main() {
-// 	iconFile, err := os.Open("C:/Users/deboj/Downloads/px.png")
+// 	iconFile, err := os.Open("C:/Users/deboj/OneDrive/Desktop/table/174314.png")
 // 	if err != nil {
 // 		log.Fatal(err)
 // 	}
