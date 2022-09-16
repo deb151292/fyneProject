@@ -5,7 +5,9 @@ import (
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
+	home "fyneCode.go/Home"
 	"fyneCode.go/disp"
 	"fyneCode.go/images"
 	savedata "fyneCode.go/saveData"
@@ -19,12 +21,13 @@ type appInfo struct {
 }
 
 var apps = []appInfo{
+	{"HOME", theme.HomeIcon(), false, home.Home},
 	{"Save User", images.Saveicon, false, savedata.Insert},
 	{"Display User", images.Dispicon, false, disp.User_Display},
 }
 
 func main() {
-
+	// var f bool
 	a := app.New()
 	a.SetIcon(images.ResourceIconPng)
 
@@ -54,7 +57,10 @@ func main() {
 		content.Objects = []fyne.CanvasObject{apps[id].run(w)}
 
 	}
+	if content.Objects == nil {
+		content = container.NewBorder(nil, nil, nil, nil, canvas.NewImageFromResource(images.Home))
 
+	}
 	split := container.NewHSplit(appList, content)
 	split.Offset = 0.2
 	w.SetContent(split)
@@ -66,7 +72,7 @@ func main() {
 //for icon file
 
 // func main() {
-// 	iconFile, err := os.Open("C:/Users/deboj/OneDrive/Desktop/table/174314.png")
+// 	iconFile, err := os.Open("D:/Demo project fyneIO/dfgh.png")
 // 	if err != nil {
 // 		log.Fatal(err)
 // 	}
