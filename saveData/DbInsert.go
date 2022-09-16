@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"strconv"
 	"strings"
 
 	"fyneCode.go/entity"
@@ -13,7 +14,7 @@ func User_insert_json(username string, email string, contactNumber string) strin
 	var Massage []string
 	validationErr := false
 
-	if !strings.Contains(email, "@") || email[len(email)-4:] != ".com" {
+	if !strings.Contains(email, "@") || email[len(email)-4:] != ".com" || len(email) < 10 {
 		validationErr = true
 		emailError := "Email Address Not Valid !"
 		Massage = append(Massage, emailError)
@@ -23,9 +24,20 @@ func User_insert_json(username string, email string, contactNumber string) strin
 		contactError := "Contact number not valid!"
 		Massage = append(Massage, contactError)
 	}
+	_, err := strconv.Atoi(contactNumber)
+	if err != nil {
+		validationErr = true
+		contactError := "Contact number is not a number!"
+		Massage = append(Massage, contactError)
+	}
+	if username == "" {
+		validationErr = true
+		contactError := "Please enter user name!"
+		Massage = append(Massage, contactError)
+	}
+
 	if validationErr == true {
 		return strings.TrimRight(strings.Join(Massage, " "+","), ",")
-
 	}
 
 	OldUser := []entity.User{}
